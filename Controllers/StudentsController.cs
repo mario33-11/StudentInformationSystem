@@ -17,6 +17,12 @@ public class StudentsController : Controller
     // GET: /Students
     public async Task<IActionResult> Index()
     {
+        // Seed sample data if database is empty
+        if (!await _context.Students.AnyAsync())
+        {
+            await SeedSampleData();
+        }
+        
         var students = await _context.Students.AsNoTracking().ToListAsync();
         return View(students);
     }
@@ -107,6 +113,21 @@ public class StudentsController : Controller
             await _context.SaveChangesAsync();
         }
         return RedirectToAction(nameof(Index));
+    }
+
+    private async Task SeedSampleData()
+    {
+        var sampleStudents = new List<Student>
+        {
+            new Student { Name = "Ahmed Mohamed", Email = "ahmed.mohamed@university.edu", Phone = "+20-123-456-789", Department = "Computer Science", EnrollmentDate = DateTime.Now.AddDays(-120) },
+            new Student { Name = "Fatima Ali", Email = "fatima.ali@university.edu", Phone = "+20-987-654-321", Department = "Engineering", EnrollmentDate = DateTime.Now.AddDays(-90) },
+            new Student { Name = "Omar Hassan", Email = "omar.hassan@university.edu", Phone = "+20-555-123-456", Department = "Business", EnrollmentDate = DateTime.Now.AddDays(-60) },
+            new Student { Name = "Aisha Mahmoud", Email = "aisha.mahmoud@university.edu", Phone = "+20-777-888-999", Department = "Computer Science", EnrollmentDate = DateTime.Now.AddDays(-30) },
+            new Student { Name = "Youssef Ibrahim", Email = "youssef.ibrahim@university.edu", Phone = "+20-111-222-333", Department = "Engineering", EnrollmentDate = DateTime.Now.AddDays(-15) }
+        };
+
+        await _context.Students.AddRangeAsync(sampleStudents);
+        await _context.SaveChangesAsync();
     }
 }
 
