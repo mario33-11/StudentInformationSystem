@@ -1,0 +1,53 @@
+@model IEnumerable<StudentInformationSystem.Models.Student>
+@{
+    ViewData["Title"] = "Search Students";
+}
+
+<h1>Search Students</h1>
+
+<form asp-action="Search" method="post" class="card form-grid" style="max-width:640px;">
+    <div>
+        <label>Student ID:</label>
+        <input type="number" name="studentId" />
+    </div>
+    <div>
+        <label>Name:</label>
+        <input type="text" name="name" />
+    </div>
+    <div>
+        <button type="submit" class="btn-primary">Search</button>
+        <a asp-action="Index" class="btn-secondary">Back</a>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    <h2>Results</h2>
+    <table class="table-clean">
+        <thead>
+            <tr>
+                <th>StudentID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>EnrollmentDate</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.StudentID</td>
+                <td>@s.Name</td>
+                <td>@s.Email</td>
+                <td>@s.Phone</td>
+                <td>@s.Department</td>
+                <td>@s.EnrollmentDate.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+
