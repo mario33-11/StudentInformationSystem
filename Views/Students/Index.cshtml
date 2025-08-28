@@ -3,42 +3,74 @@
     ViewData["Title"] = "Students";
 }
 
-<h1>Students</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary">
+        <i class="bi bi-people"></i> Students List
+    </h1>
+    <div>
+        <a asp-action="Create" class="btn btn-success me-2">
+            <i class="bi bi-plus-circle"></i> Add New Student
+        </a>
+        <a asp-action="Search" class="btn btn-info">
+            <i class="bi bi-search"></i> Search Students
+        </a>
+    </div>
+</div>
 
-<div class="card" style="margin-bottom:12px;">
-    <a class="btn-primary" asp-action="Create">Add New Student</a>
-    <a class="btn-secondary" asp-action="Search">Search</a>
- </div>
-
-<table class="table-clean">
-    <thead>
-        <tr>
-            <th>StudentID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Department</th>
-            <th>EnrollmentDate</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var s in Model)
+@if (!Model.Any())
 {
-        <tr>
-            <td>@s.StudentID</td>
-            <td>@s.Name</td>
-            <td>@s.Email</td>
-            <td>@s.Phone</td>
-            <td>@s.Department</td>
-            <td>@s.EnrollmentDate.ToString("yyyy-MM-dd")</td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@s.StudentID">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@s.StudentID">Delete</a>
-            </td>
-        </tr>
+    <div class="alert alert-info text-center">
+        <i class="bi bi-info-circle"></i> No students found. 
+        <a asp-action="Create" class="alert-link">Add the first student</a>
+    </div>
 }
-    </tbody>
-</table>
+else
+{
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th><i class="bi bi-hash"></i> ID</th>
+                            <th><i class="bi bi-person"></i> Name</th>
+                            <th><i class="bi bi-envelope"></i> Email</th>
+                            <th><i class="bi bi-telephone"></i> Phone</th>
+                            <th><i class="bi bi-building"></i> Department</th>
+                            <th><i class="bi bi-calendar"></i> Enrollment Date</th>
+                            <th><i class="bi bi-gear"></i> Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var student in Model)
+                        {
+                            <tr>
+                                <td><span class="badge bg-secondary">@student.StudentID</span></td>
+                                <td><strong>@student.Name</strong></td>
+                                <td><a href="mailto:@student.Email" class="text-decoration-none">@student.Email</a></td>
+                                <td><a href="tel:@student.Phone" class="text-decoration-none">@student.Phone</a></td>
+                                <td><span class="badge bg-primary">@student.Department</span></td>
+                                <td>@student.EnrollmentDate.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a asp-action="Edit" asp-route-id="@student.StudentID" 
+                                           class="btn btn-sm btn-outline-primary" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@student.StudentID" 
+                                           class="btn btn-sm btn-outline-danger" title="Delete"
+                                           onclick="return confirm('Are you sure you want to delete this student?')">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
 
 
