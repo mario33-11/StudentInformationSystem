@@ -3,6 +3,71 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to Student Management System</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4 text-primary mb-4">🎓 Student Management System</h1>
+    <p class="lead mb-4">Efficiently manage student information, track enrollments, and maintain academic records.</p>
+    
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-people display-4"></i>
+                    <h3 class="card-title">@ViewBag.TotalStudents</h3>
+                    <p class="card-text">Total Students</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-building display-4"></i>
+                    <h3 class="card-title">@ViewBag.TotalDepartments</h3>
+                    <p class="card-text">Departments</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-info text-white shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-calendar-plus display-4"></i>
+                    <h3 class="card-title">@ViewBag.RecentEnrollments</h3>
+                    <p class="card-text">Recent Enrollments</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-success">📊 System Features</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li>✅ Add new students</li>
+                                <li>✅ Search and filter</li>
+                                <li>✅ Update information</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li>✅ Department management</li>
+                                <li>✅ Enrollment tracking</li>
+                                <li>✅ Data validation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <a asp-controller="Students" asp-action="Index" class="btn btn-primary me-2">
+                            <i class="bi bi-people"></i> View Students
+                        </a>
+                        <a asp-controller="Students" asp-action="Create" class="btn btn-success">
+                            <i class="bi bi-plus-circle"></i> Add Student
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
